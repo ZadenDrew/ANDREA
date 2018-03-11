@@ -1,22 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectoprogramacion;
 
 import ficheros.Lectura;
+import java.io.File;
 
 /**
  *
  * @author estudios
  */
 public class Codigos {
-    
-    
-    public void codigo(){
-        Lectura l = new Lectura();
-        l.leer("codigos.txt");
-                 
+
+    static int codigo=0;
+
+    public Codigos() {
     }
+
+    public int codigo() {
+        Lectura l = new Lectura();
+        codigo = l.leerCodigo(new File("codigos.txt"));
+        return codigo + 1;
+
+    }
+
 }

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectoprogramacion;
 
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +11,20 @@ public class Juegos {
     String nombre, tipo, consola, dlc;
     float precio;
     boolean estado;
-    int unidades;
+    int codigo, unidades;
+
+    public Juegos() {
+    }
+
+    public Juegos(String nombre, String tipo, String consola, String dlc, float precio, boolean estado, int unidades) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.consola = consola;
+        this.dlc = dlc;
+        this.precio = precio;
+        this.estado = estado;
+        this.unidades = unidades;
+    }
 
     public String getNombre() {
         return nombre;
@@ -75,26 +82,13 @@ public class Juegos {
         this.unidades = unidades;
     }
 
-    public Juegos() {
-    }
-
-    public Juegos(String nombre, String tipo, String consola, String dlc, float precio, boolean estado, int unidades) {
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.consola = consola;
-        this.dlc = dlc;
-        this.precio = precio;
-        this.estado = estado;
-        this.unidades = unidades;
-
-    }
-
     @Override
     public String toString() {
-        return "nombre=" + nombre + ", tipo=" + tipo + ", consola=" + consola + ", dlc=" + dlc + ", precio=" + precio + ", estado=" + estado + ", unidades=" + unidades;
+        return ("-Juego:" + "nombre=" + nombre + ", tipo=" + tipo + ", consola=" + consola + ", dlc=" + dlc + ", precio=" + precio + ", estado=" + estado + ", unidades=" + unidades);
     }
 
     public Juegos nuevoJuego() {
+
         nombre = JOptionPane.showInputDialog("nombre");
         tipo = JOptionPane.showInputDialog("tipo");
         consola = JOptionPane.showInputDialog("consola");
@@ -103,7 +97,7 @@ public class Juegos {
         estado = Boolean.parseBoolean(JOptionPane.showInputDialog("estado"));
         unidades = Integer.parseInt(JOptionPane.showInputDialog("unidades"));
 
-        Juegos j1 = new Juegos(nombre, tipo, consola, dlc, precio, estado, unidades, codigo);
+        Juegos j1 = new Juegos(nombre, tipo, consola, dlc, precio, estado, unidades);
         return j1;
 
     }
