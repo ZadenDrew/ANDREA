@@ -1,5 +1,7 @@
 package proyectoprogramacion;
 
+import ficheros.Lectura;
+import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,15 +10,17 @@ import javax.swing.JOptionPane;
  */
 public class Juegos {
 
+    static int codigo = 0;
     String nombre, tipo, consola, dlc;
     float precio;
     boolean estado;
-    int codigo, unidades;
+    int unidades;
 
     public Juegos() {
     }
 
-    public Juegos(String nombre, String tipo, String consola, String dlc, float precio, boolean estado, int unidades) {
+    public Juegos(int codigo, String nombre, String tipo, String consola, String dlc, float precio, boolean estado, int unidades) {
+        Juegos.codigo = codigo;
         this.nombre = nombre;
         this.tipo = tipo;
         this.consola = consola;
@@ -74,6 +78,14 @@ public class Juegos {
         this.estado = estado;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        Juegos.codigo = codigo;
+    }
+
     public int getUnidades() {
         return unidades;
     }
@@ -84,11 +96,12 @@ public class Juegos {
 
     @Override
     public String toString() {
-        return ("-Juego:" + "nombre=" + nombre + ", tipo=" + tipo + ", consola=" + consola + ", dlc=" + dlc + ", precio=" + precio + ", estado=" + estado + ", unidades=" + unidades);
+        return (":código, " + "nombre:" + nombre + ", tipo:" + tipo + ", consola:" + consola + ", dlc:" + dlc + ", precio:" + precio + ", estado:" + estado + ", codigo:" + codigo + ", unidades:" + unidades);
     }
 
     public Juegos nuevoJuego() {
-
+        Lectura l = new Lectura();
+        codigo = l.leerCodigo(new File("codigos.txt")) + 1;
         nombre = JOptionPane.showInputDialog("nombre");
         tipo = JOptionPane.showInputDialog("tipo");
         consola = JOptionPane.showInputDialog("consola");
@@ -97,7 +110,7 @@ public class Juegos {
         estado = Boolean.parseBoolean(JOptionPane.showInputDialog("estado"));
         unidades = Integer.parseInt(JOptionPane.showInputDialog("unidades"));
 
-        Juegos j1 = new Juegos(nombre, tipo, consola, dlc, precio, estado, unidades);
+        Juegos j1 = new Juegos(codigo, nombre, tipo, consola, dlc, precio, estado, unidades);
         return j1;
 
     }
