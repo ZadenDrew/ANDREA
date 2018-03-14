@@ -44,18 +44,19 @@ public class Tabla extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        buscar = new javax.swing.JButton();
+        Mostrar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        busqueda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tabla.setModel(modeloTabla);
         jScrollPane1.setViewportView(tabla);
 
-        buscar.setText("Busqueda");
-        buscar.addActionListener(new java.awt.event.ActionListener() {
+        Mostrar.setText("Mostrar");
+        Mostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+                MostrarActionPerformed(evt);
             }
         });
 
@@ -66,15 +67,24 @@ public class Tabla extends javax.swing.JFrame {
             }
         });
 
+        busqueda.setText("Búsqueda");
+        busqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busquedaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(102, 102, 102)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buscar)
+                        .addComponent(busqueda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Mostrar)
                         .addGap(122, 122, 122)
                         .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -87,25 +97,30 @@ public class Tabla extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscar)
-                    .addComponent(jButton1))
+                    .addComponent(Mostrar)
+                    .addComponent(jButton1)
+                    .addComponent(busqueda))
                 .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    private void MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarActionPerformed
         try {
-            buscar();
+            mostrar();
         } catch (IOException ex) {
             Logger.getLogger(Tabla.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_buscarActionPerformed
+    }//GEN-LAST:event_MostrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         inicio();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void busquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaActionPerformed
+       buscar();
+    }//GEN-LAST:event_busquedaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,13 +152,14 @@ public class Tabla extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buscar;
+    private javax.swing.JButton Mostrar;
+    private javax.swing.JButton busqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 
-    private void buscar() throws IOException {
+    private void mostrar() throws IOException {
         String line = "";
         // String[] sep, sep2;
         String[] sep = new String[7];
@@ -154,13 +170,17 @@ public class Tabla extends javax.swing.JFrame {
         reader = new BufferedReader(new FileReader("juegos.txt"));
 
         while ((line = reader.readLine()) != null) {
-            Object[] linea = new Object[7];
+            Object[] linea = new Object[8];
             for (int i = 0; i < sep.length; i++) {
                 sep = line.split(",");
                 for (int j = 0; j <= i; j++) {
-                    sep2 = sep[i].split("\\s*:");
+                    if (j > 0) {
+                        sep2 = sep[i].split("\\s*:");
+                    } else {
+                        sep2 = sep[i].split(":\\s*");
+                    }
                     if (i == 0) {
-                        linea[0] = sep2[1];
+                        linea[0] = sep2[0];
                     }
                     if (i == 1) {
                         linea[1] = sep2[1];

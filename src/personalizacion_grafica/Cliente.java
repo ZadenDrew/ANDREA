@@ -635,7 +635,7 @@ public class Cliente extends javax.swing.JFrame {
             final BufferedReader reader;
 
             try {
-                reader = new BufferedReader(new FileReader("Juegos.txt"));
+                reader = new BufferedReader(new FileReader("juegos.txt"));
                 int contador = 0;
                 while ((line = reader.readLine()) != null) {
 
@@ -709,8 +709,6 @@ public class Cliente extends javax.swing.JFrame {
                             sep = line.split(",");
                             sep2 = sep[a].split("\\s*:");
 
-                            sep = line.split(",");
-                            sep2 = sep[a].split("\\s*:");
                               if (a == 0) {
                                 this.codigoTxt1.setText(sep2[1]);
                             }
