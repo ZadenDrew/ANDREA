@@ -30,6 +30,16 @@ public class Juegos {
         this.unidades = unidades;
     }
 
+    public Juegos(String nombre, String tipo, String consola, String dlc, float precio, boolean estado, int unidades) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.consola = consola;
+        this.dlc = dlc;
+        this.precio = precio;
+        this.estado = estado;
+        this.unidades = unidades;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -114,5 +124,6 @@ public class Juegos {
         return j1;
 
     }
+
 
 }

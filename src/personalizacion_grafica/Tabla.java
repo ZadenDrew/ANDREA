@@ -3,16 +3,20 @@ package personalizacion_grafica;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import proyectoprogramacion.Juegos;
 
 /**
  *
  * @author estudios
  */
 public class Tabla extends javax.swing.JFrame {
-
+    Sesion s= new Sesion();
+    public Administrar admin= new Administrar();
     private final DefaultTableModel modeloTabla;
 
     /**
@@ -167,7 +171,7 @@ public class Tabla extends javax.swing.JFrame {
 
         final BufferedReader reader;
 
-        reader = new BufferedReader(new FileReader("juegos.txt"));
+        reader = new BufferedReader(new FileReader("JUEGOS.txt"));
 
         while ((line = reader.readLine()) != null) {
             Object[] linea = new Object[8];
@@ -213,6 +217,13 @@ public class Tabla extends javax.swing.JFrame {
     private void inicio() {
 
         this.setVisible(false);
-        this.tabla.setVisible(true);
+        s.setVisible(true);
+    }
+
+    private void buscar() {
+        int buscar=Integer.parseInt(JOptionPane.showInputDialog("¿Qué código desea búscar?"));
+//        Juegos j2=admin.mapaJuegos.get(buscar);
+        System.out.println(admin.mapaJuegos);
+        System.out.println(admin.mapaJuegos.get(buscar));
     }
 }

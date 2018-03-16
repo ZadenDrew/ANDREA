@@ -3,9 +3,10 @@ package personalizacion_grafica;
 import ficheros.Escritura;
 import ficheros.Lectura;
 import java.io.File;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
-import javax.swing.JOptionPane;
 import proyectoprogramacion.Juegos;
 import proyectoprogramacion.Proyecto;
 
@@ -14,7 +15,8 @@ import proyectoprogramacion.Proyecto;
  * @author estudios
  */
 public class Administrar extends javax.swing.JFrame {
-
+    String completo= "";
+    static public Map<Integer, Juegos> mapaJuegos = new TreeMap<>();
     Juegos j1 = new Juegos();
     Escritura ObxetoEscritura = new Escritura();
     Proyecto ObxetoProxecto = new Proyecto();
@@ -42,6 +44,8 @@ public class Administrar extends javax.swing.JFrame {
         BMostrarJuego = new javax.swing.JButton();
         BModificar = new javax.swing.JButton();
         BVolverInicio = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,10 +60,10 @@ public class Administrar extends javax.swing.JFrame {
         AreaTexto.setRows(5);
         AreaTexto.setSelectedTextColor(new java.awt.Color(204, 0, 0));
         AreaTexto.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 AreaTextoInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jScrollPane1.setViewportView(AreaTexto);
@@ -85,23 +89,44 @@ public class Administrar extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Mapa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(BNuevoJuego)
                 .addGap(18, 18, 18)
                 .addComponent(BMostrarJuego)
                 .addGap(18, 18, 18)
-                .addComponent(BModificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                .addComponent(BVolverInicio)
-                .addGap(30, 30, 30))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BModificar)
+                        .addGap(38, 38, 38)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addComponent(BVolverInicio)
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +138,10 @@ public class Administrar extends javax.swing.JFrame {
                     .addComponent(BNuevoJuego)
                     .addComponent(BMostrarJuego)
                     .addComponent(BModificar)
-                    .addComponent(BVolverInicio))
-                .addGap(52, 52, 52))
+                    .addComponent(BVolverInicio)
+                    .addComponent(jButton1))
+                .addGap(27, 27, 27)
+                .addComponent(jButton2))
         );
 
         pack();
@@ -122,12 +149,12 @@ public class Administrar extends javax.swing.JFrame {
 
     private void BNuevoJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BNuevoJuegoActionPerformed
         //  ArrayList<Juegos> juegosAnhadidos= new ArrayList();
-        Map<Integer, Juegos> mapaJuegos = new TreeMap<>();
+
         nuevoJuego(mapaJuegos);
     }//GEN-LAST:event_BNuevoJuegoActionPerformed
 
     private void AreaTextoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_AreaTextoInputMethodTextChanged
-
+        ObxetoEscritura.escribeCodigo(new File("juegos.txt"), 2);
     }//GEN-LAST:event_AreaTextoInputMethodTextChanged
 
     private void BMostrarJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BMostrarJuegoActionPerformed
@@ -135,12 +162,20 @@ public class Administrar extends javax.swing.JFrame {
     }//GEN-LAST:event_BMostrarJuegoActionPerformed
 
     private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
-        modificarTxt();
+        modificarTXT();
     }//GEN-LAST:event_BModificarActionPerformed
 
     private void BVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BVolverInicioActionPerformed
         inicio();
     }//GEN-LAST:event_BVolverInicioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        mostrarMapa();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.exit(-1);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,7 +197,7 @@ public class Administrar extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Administrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -177,6 +212,8 @@ public class Administrar extends javax.swing.JFrame {
     private javax.swing.JButton BMostrarJuego;
     private javax.swing.JButton BNuevoJuego;
     private javax.swing.JButton BVolverInicio;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
@@ -185,24 +222,45 @@ public class Administrar extends javax.swing.JFrame {
         j1 = j1.nuevoJuego();
         ObxetoEscritura.escribir(new File("juegos.txt"), j1.getCodigo(), j1, mapaJuegos);
         ObxetoEscritura.escribeCodigo(new File("codigos.txt"), j1.getCodigo());
+//        mapaJuegos.put(j1.getCodigo(), j1);
+//        System.out.println(j1.getCodigo()+", "+j1.toString());
+
     }
 
     private void mostrarJuegos() {
         Lectura ObxetoLectura = new Lectura();
         String fichero = ObxetoLectura.leerCompleto(new File("juegos.txt"));
         this.AreaTexto.setText(fichero);
+
     }
 
-    private void modificarTxt() {
-        String[] completo = this.AreaTexto.getText().split("\n");
-        for (int i = 0; i < completo.length; i++) {
-            JOptionPane.showMessageDialog(null, completo[i]);
-        }
-
+    @Override
+    public String toString() {
+        return "Administrar{" + "mapaJuegos=" + mapaJuegos + '}';
     }
 
     private void inicio() {
         this.setVisible(false);
         this.ObxetoSesion.setVisible(true);
     }
+
+    public void mostrarMapa() {
+        System.out.println("valores del mapa");
+        Set keys = mapaJuegos.keySet();
+        for (Iterator i = keys.iterator(); i.hasNext();) {
+            Integer key = (Integer) i.next();
+            Juegos value = mapaJuegos.get(key);
+            System.out.println(key + " = " + value);
+        }
+    }
+
+    private void modificarTXT() {
+        String[] txt = this.AreaTexto.getText().split("\n");
+        for (int i = 0; i < txt.length; i++) {
+        completo = completo+txt[i] +"\n";   
+        ObxetoEscritura.sobreEscribir(new File("juegos.txt"), completo);
+        }
+
+    }
+
 }

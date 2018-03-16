@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,4 +40,19 @@ public class Escritura {
             Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void sobreEscribir(File fichero, String txt) {
+        try {
+            
+                
+                try (PrintWriter writer = new PrintWriter(new FileWriter(fichero),false)) {
+                    writer.println(txt);
+                
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Escritura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
